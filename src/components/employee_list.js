@@ -30,7 +30,6 @@ class EmployeeList extends Component {
   }
 
   renderRow(employee) {
-    console.log('employee',employee)
     return <EmployeeListItem employee={employee} />;
   }
 
@@ -47,7 +46,7 @@ class EmployeeList extends Component {
 
 const mapStateToProps = ({ employeesObj }) => {
   let employees = {};
-  // create new object adding the uid
+  // create new object adding the uid to each employee
   for (let prop in employeesObj) {
     employees[prop] = { ...employeesObj[prop], uid: prop }
   }

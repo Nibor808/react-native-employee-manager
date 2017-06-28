@@ -6,7 +6,7 @@ export const employeeUpdate = ({ prop, value }) => {
   return {
     type: EMPLOYEE_UPDATE,
     payload: { prop, value }
-  }
+  };
 };
 
 export const employeeCreate = ({ name, phone, shift }) => {
@@ -20,7 +20,7 @@ export const employeeCreate = ({ name, phone, shift }) => {
           type: EMPLOYEE_CREATE
         })
         Actions.employeeList({ type: 'reset' })
-      })
+      });
   };
 };
 
@@ -38,7 +38,7 @@ export const employeesFetch = () => {
           payload: snapshot.val()
         })
       })
-  }
+  };
 };
 
 export const employeeSave = ({ name, phone, shift, uid }) => {
@@ -54,5 +54,17 @@ export const employeeSave = ({ name, phone, shift, uid }) => {
         Actions.employeeList({ type: 'reset' })
 
       });
-  }
-}
+  };
+};
+
+export const employeeDelete =({ uid }) => {
+  const { currentUser } = firebase.auth();
+
+  return () => {
+    firebase.database().ref(`/users/${currentUser.uid}/employees/${uid}`)
+      .remove()
+      .then(() => {
+        Actions.employeeList({ type: 'reset' })
+      });
+  };
+};
